@@ -1,0 +1,427 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/nbluis/static-server#readme"
+
+    >static-server (v2.0.4)</a>
+</h1>
+<h4>A simple http server to serve static resource files from a local directory.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.static-server">module static-server</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.static-server.static-server">
+            function <span class="apidocSignatureSpan"></span>static-server
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.static-server.server">
+            function <span class="apidocSignatureSpan">static-server.</span>server
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.static-server.super_">
+            function <span class="apidocSignatureSpan">static-server.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.static-server.toString">
+            function <span class="apidocSignatureSpan">static-server.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">static-server.</span>STATUS_CODES</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">static-server.</span>server.prototype</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.static-server.server">module static-server.server</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.static-server.server.server">
+            function <span class="apidocSignatureSpan">static-server.</span>server
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.static-server.server.super_">
+            function <span class="apidocSignatureSpan">static-server.server.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">static-server.server.</span>STATUS_CODES</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.static-server.server.prototype">module static-server.server.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.static-server.server.prototype.start">
+            function <span class="apidocSignatureSpan">static-server.server.prototype.</span>start
+            <span class="apidocSignatureSpan">(callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.static-server.server.prototype.stop">
+            function <span class="apidocSignatureSpan">static-server.server.prototype.</span>stop
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.static-server" id="apidoc.module.static-server">module static-server</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.static-server.static-server" id="apidoc.element.static-server.static-server">
+        function <span class="apidocSignatureSpan"></span>static-server
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function StaticServer(options) {
+  options = options || {};
+
+  if (!options.rootPath) {
+    throw new Error(&#x27;Root path not specified&#x27;);
+  }
+
+  if(!options.templates){
+    options.templates = {};
+  }
+
+  this.name = options.name;
+  this.host = options.host;
+  this.port = options.port;
+  this.cors = options.cors;
+  this.rootPath = path.resolve(options.rootPath);
+  this.followSymlink = !!options.followSymlink;
+  this.templates = {
+    &#x27;index&#x27;: (options.templates.index || DEFAULT_INDEX),
+    &#x27;notFound&#x27;: options.templates.notFound
+  };
+
+  if (options.index) {
+    console.log(&#x22;options.index is now deprecated please use options.templates.index instead.&#x22;);
+    this.templates.index = options.index;
+  }
+
+  Object.defineProperty(this, &#x27;_socket&#x27;, {
+    configurable: true,
+    enumerable: false,
+    writable: true,
+    value: null
+  });
+
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.static-server.server" id="apidoc.element.static-server.server">
+        function <span class="apidocSignatureSpan">static-server.</span>server
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function StaticServer(options) {
+  options = options || {};
+
+  if (!options.rootPath) {
+    throw new Error(&#x27;Root path not specified&#x27;);
+  }
+
+  if(!options.templates){
+    options.templates = {};
+  }
+
+  this.name = options.name;
+  this.host = options.host;
+  this.port = options.port;
+  this.cors = options.cors;
+  this.rootPath = path.resolve(options.rootPath);
+  this.followSymlink = !!options.followSymlink;
+  this.templates = {
+    &#x27;index&#x27;: (options.templates.index || DEFAULT_INDEX),
+    &#x27;notFound&#x27;: options.templates.notFound
+  };
+
+  if (options.index) {
+    console.log(&#x22;options.index is now deprecated please use options.templates.index instead.&#x22;);
+    this.templates.index = options.index;
+  }
+
+  Object.defineProperty(this, &#x27;_socket&#x27;, {
+    configurable: true,
+    enumerable: false,
+    writable: true,
+    value: null
+  });
+
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.static-server.super_" id="apidoc.element.static-server.super_">
+        function <span class="apidocSignatureSpan">static-server.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function EventEmitter() {
+  EventEmitter.init.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.static-server.toString" id="apidoc.element.static-server.toString">
+        function <span class="apidocSignatureSpan">static-server.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.static-server.server" id="apidoc.module.static-server.server">module static-server.server</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.static-server.server.server" id="apidoc.element.static-server.server.server">
+        function <span class="apidocSignatureSpan">static-server.</span>server
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function StaticServer(options) {
+  options = options || {};
+
+  if (!options.rootPath) {
+    throw new Error(&#x27;Root path not specified&#x27;);
+  }
+
+  if(!options.templates){
+    options.templates = {};
+  }
+
+  this.name = options.name;
+  this.host = options.host;
+  this.port = options.port;
+  this.cors = options.cors;
+  this.rootPath = path.resolve(options.rootPath);
+  this.followSymlink = !!options.followSymlink;
+  this.templates = {
+    &#x27;index&#x27;: (options.templates.index || DEFAULT_INDEX),
+    &#x27;notFound&#x27;: options.templates.notFound
+  };
+
+  if (options.index) {
+    console.log(&#x22;options.index is now deprecated please use options.templates.index instead.&#x22;);
+    this.templates.index = options.index;
+  }
+
+  Object.defineProperty(this, &#x27;_socket&#x27;, {
+    configurable: true,
+    enumerable: false,
+    writable: true,
+    value: null
+  });
+
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.static-server.server.super_" id="apidoc.element.static-server.server.super_">
+        function <span class="apidocSignatureSpan">static-server.server.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function EventEmitter() {
+  EventEmitter.init.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.static-server.server.prototype" id="apidoc.module.static-server.server.prototype">module static-server.server.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.static-server.server.prototype.start" id="apidoc.element.static-server.server.prototype.start">
+        function <span class="apidocSignatureSpan">static-server.server.prototype.</span>start
+        <span class="apidocSignatureSpan">(callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function start(callback) {
+  this._socket = http.createServer(requestHandler(this)).listen(this.port, this.host, callback);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  followSymlink: true,      // optional, defaults to a 404 error
+  templates: {
+    index: &#x27;foo.html&#x27;,      // optional, defaults to &#x27;index.html&#x27;
+    notFound: &#x27;404.html&#x27;    // optional, defaults to undefined
+  }
+});
+
+server.<span class="apidocCodeKeywordSpan">start</span>(function () {
+  console.log(&#x27;Server listening to&#x27;, server.port);
+});
+
+server.on(&#x27;request&#x27;, function (req, res) {
+  // req.path is the URL resource (file name) from server.rootPath
+  // req.elapsedTime returns a string of the request&#x27;s elapsed time
+});
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.static-server.server.prototype.stop" id="apidoc.element.static-server.server.prototype.stop">
+        function <span class="apidocSignatureSpan">static-server.server.prototype.</span>stop
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function stop() {
+  if (this._socket) {
+    this._socket.close();
+    this._socket = null;
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
